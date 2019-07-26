@@ -10,6 +10,8 @@ resource "google_project_services" "enabled-apis" {
     "pubsub.googleapis.com",
     "compute.googleapis.com",
     "oslogin.googleapis.com",
+    "iam.googleapis.com",
+    "iamcredentials.googleapis.com",
     "logging.googleapis.com",
     "storage-api.googleapis.com",
     "containerregistry.googleapis.com",
