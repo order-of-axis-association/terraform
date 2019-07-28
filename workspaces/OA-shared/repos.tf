@@ -11,10 +11,9 @@ resource "google_cloudbuild_trigger" "docker-fluentd-deploy-trigger" {
   }
 
   substitutions = {
-    REGION = "${var.region}"
-    KMS_KEY_RING_NAME = "${var.kms_key_ring_name}"
-    AQUABOT_SECRET_KMS_CRYPTO_KEY = "${var.aquabot_secret_kms_crypto_key}"
-    AQUABOT_SECRETS_PEM_ENC_BASE64 = "${file("secrets/aquabot_pem_kms_ciphertext_base64.enc")}"
+    _REGION = "${var.region}"
+    _KMS_KEY_RING_NAME = "${var.kms_key_ring_name}"
+    _AQUABOT_SECRET_KMS_CRYPTO_KEY = "${var.aquabot_secret_kms_crypto_key}"
   }
 
   filename = "cloudbuild.yml"

@@ -30,9 +30,10 @@ resource "google_project_iam_binding" "cloudbuild_submit" {
 
 resource "google_kms_crypto_key_iam_binding" "aquabot_crypto_key" {
   crypto_key_id = "${data.google_project.project.project_id}/${var.region}/${var.kms_key_ring_name}/${var.aquabot_secret_kms_crypto_key}"
-  role          = "roles/editor"
+  role          = "roles/cloudkms.cryptoKeyDecrypter"
 
   members = [
+    "serviceAccount:${var.oa_shared_cloudbuild_sa}",
     "serviceAccount:${var.remi_gcp_vm_sa}",
   ]
 }

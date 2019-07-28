@@ -6,6 +6,7 @@ region_zone = "us-central1-a"
 kms_key_ring_name = "oa-shared-kms-ring"
 aquabot_secret_kms_crypto_key = "aquabot_secret_pem"
 
+oa_shared_cloudbuild_sa = "441224821559@cloudbuild.gserviceaccount.com"
 remi_gcp_vm_sa = "1022664645107-compute@developer.gserviceaccount.com"
 
 billing_account = "01CD23-388697-182832"
