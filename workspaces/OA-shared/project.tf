@@ -20,5 +20,6 @@ resource "google_project_services" "enabled-apis" {
     "sourcerepo.googleapis.com",
     "sheets.googleapis.com",
     "drive.googleapis.com",
+    "cloudkms.googleapis.com",
   ]
 }
