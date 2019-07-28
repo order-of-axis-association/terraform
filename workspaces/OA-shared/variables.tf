@@ -3,6 +3,8 @@ variable "project_name" {}
 variable "region" {}
 variable "region_zone" {}
 
+variable "kms_key_ring_name" {}
+
 variable "billing_account" {}
 
 variable "gcr_shared_project" {}
