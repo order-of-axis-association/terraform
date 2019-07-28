@@ -28,6 +28,7 @@ resource "google_project_iam_binding" "cloudbuild_submit" {
 }
 
 
+# Give access to KMS keyring
 resource "google_kms_crypto_key_iam_binding" "aquabot_crypto_key" {
   crypto_key_id = "${data.google_project.project.project_id}/${var.region}/${var.kms_key_ring_name}/${var.aquabot_secret_kms_crypto_key}"
   role          = "roles/cloudkms.cryptoKeyDecrypter"
@@ -36,4 +37,14 @@ resource "google_kms_crypto_key_iam_binding" "aquabot_crypto_key" {
     "serviceAccount:${var.oa_shared_cloudbuild_sa}",
     "serviceAccount:${var.remi_gcp_vm_sa}",
   ]
+}
+
+# Give access to GCR images
+resource "google_storage_bucket_iam_binding" "gcr-docker-image-access" {
+    bucket = "artifacts.${var.project_id}.appspot.com"
+    role   = "roles/storage.objectViewer"
+
+    members = [
+        "serviceAccount:${data.google_service_account.aquabot-sa.email}"
+    ]
 }

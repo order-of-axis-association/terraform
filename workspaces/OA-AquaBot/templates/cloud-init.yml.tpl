@@ -1,11 +1,12 @@
 #cloud-config
 
 users:
-- name: oa-aquabot
+- name: aquabot
   uid: 2000
+  groups: docker
 
 write_files:
-- path: /etc/systemd/system/oa-aquabot.service
+- path: /etc/systemd/system/aquabot.service
   permissions: 0644
   owner: root
   content: |
@@ -15,13 +16,15 @@ write_files:
     After=docker.service network-online.target
 
     [Service]
-    Environment="HOME=/home/oa-aquabot"
+    Environment="HOME=/home/aquabot"
     ExecStartPre=/usr/bin/docker-credential-gcr configure-docker # use this if your are using Google's docker repository
+    ExecStartPre=/usr/bin/docker pull gcr.io/${gcr_project}/${gcr_image}:${gcr_tag}
     ExecStart=/usr/bin/docker run \
- 		--rm \
-		--name=oa-aquabot \
-		gcr.io/${gcr_project}/${gcr_image}:${gcr_tag}
-    ExecStop=/usr/bin/docker stop oa-aquabot
+        --rm \
+        -u 2000 \
+        --name=aquabot \
+        gcr.io/${gcr_project}/${gcr_image}:${gcr_tag}
+    ExecStop=/usr/bin/docker stop aquabot
     Restart=on-failure
     RestartSec=10
     [Install]
