@@ -22,6 +22,7 @@ write_files:
     ExecStart=/usr/bin/docker run \
         --rm \
         -u 2000 \
+        -p 25100:25100 \
         --name=aquabot \
         gcr.io/${gcr_project}/${gcr_image}:${gcr_tag}
     ExecStop=/usr/bin/docker stop aquabot

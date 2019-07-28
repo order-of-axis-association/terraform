@@ -5,7 +5,7 @@ resource "google_compute_instance" "OA-AquaBot" {
 
   allow_stopping_for_update = true
 
-  tags = ["http-traffic", "ssh-traffic"]
+  tags = ["http-traffic", "ssh-traffic", "aquabot"]
 
   boot_disk {
     initialize_params {

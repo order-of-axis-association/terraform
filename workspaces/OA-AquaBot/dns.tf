@@ -22,3 +22,15 @@ resource "google_compute_firewall" "http-ssh" {
   target_tags = ["ssh-traffic"]
 }
 
+resource "google_compute_firewall" "aquabot" {
+  name    = "aquabot"
+  network = "default"
+
+  allow {
+    protocol = "tcp"
+    ports    = ["25100"]
+  }
+
+  target_tags = ["aquabot"]
+}
+
