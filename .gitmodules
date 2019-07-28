@@ -1,0 +1,3 @@
+[submodule "workspaces/OA-shared/secrets"]
+	path = workspaces/OA-shared/secrets
+	url = git@github.com:remiscarlet/terraform_oa-shared_secrets.git
