@@ -34,4 +34,5 @@ write_files:
 runcmd:
 - iptables -A INPUT -p tcp -j ACCEPT
 - systemctl daemon-reload
+- systemctl start aquabot
 #- systemctl enable --now --no-block oa-web.service

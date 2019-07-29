@@ -3,6 +3,8 @@ variable "project_name" {}
 variable "region" {}
 variable "region_zone" {}
 
+variable "oa_shared_cloudbuild_sa" {}
+
 variable "gce_ssh_user" {}
 variable "gce_ssh_user_pub" {}
 
