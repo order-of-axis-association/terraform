@@ -11,5 +11,6 @@ resource "google_project_services" "enabled-apis" {
     "logging.googleapis.com",
     "serviceusage.googleapis.com",
     "cloudresourcemanager.googleapis.com",
+    "sqladmin.googleapis.com",
   ]
 }
