@@ -1,3 +1,6 @@
 [submodule "workspaces/OA-shared/secrets"]
 	path = workspaces/OA-shared/secrets
 	url = git@github.com:remiscarlet/terraform_oa-shared_secrets.git
+[submodule "workspaces/OA-AquaBot/secrets"]
+	path = workspaces/OA-AquaBot/secrets
+	url = git@github.com:remiscarlet/aquabot-secrets.git
