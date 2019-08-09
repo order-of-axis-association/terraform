@@ -1,3 +1,4 @@
+# Cloud SQL Instance
 resource "google_sql_database_instance" "master" {
   name = "aquabot-master"
   project = "${var.project_id}"
@@ -15,13 +16,18 @@ resource "google_sql_database_instance" "master" {
         require_ssl = true
 
         authorized_networks {
-            name = "OA-Aquabot"
+            name  = "Aquabot"
             value = "${google_compute_instance.OA-AquaBot.network_interface.0.access_config.0.nat_ip}"
+        }
+        authorized_networks {
+            name  = "Remi-Dev"
+            value = "${var.remi_gcp_vm_ip}"
         }
     }
   }
 }
 
+# Database
 resource "google_sql_database" "db_aquabot" {
     name        = "db_aquabot"
     instance    = "${google_sql_database_instance.master.name}"
@@ -29,11 +35,22 @@ resource "google_sql_database" "db_aquabot" {
     collation   = "utf8mb4_unicode_ci"
 }
 
-
-
+# User
 resource "google_sql_user" "aquabot" {
     name        = "aquabot"
     instance    = "${google_sql_database_instance.master.name}"
-    host        = "${google_compute_instance.OA-AquaBot.network_interface.0.access_config.0.nat_ip}"
     password    = "${file("secrets/db_password.txt")}"
 }
+
+# Grant
+/*
+resource "mysql_grant" "aquabot" {
+    user        = "${google_sql_user.aquabot.name}"
+    host        = "${google_sql_user.aquabot.host}"
+
+    tls_option  = "SSL"
+
+    privileges  = [ "ALL" ]
+    database    = "db_aquabot"
+}
+*/

@@ -8,6 +8,7 @@ aquabot_secret_kms_crypto_key = "aquabot_secret_pem"
 
 oa_shared_cloudbuild_sa = "441224821559@cloudbuild.gserviceaccount.com"
 remi_gcp_vm_sa = "1022664645107-compute@developer.gserviceaccount.com"
+remi_gcp_vm_ip = "35.245.118.9"
 
 bugreports_url = "gitreports.com/issue/order-of-axis-association/AquaBot."
 
