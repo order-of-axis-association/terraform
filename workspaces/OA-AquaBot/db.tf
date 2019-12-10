@@ -23,6 +23,10 @@ resource "google_sql_database_instance" "master" {
             name  = "Remi-Dev"
             value = "${var.remi_gcp_vm_ip}"
         }
+        authorized_networks {
+            name  = "Remi-Home"
+            value = "74.89.217.182"
+        }
     }
   }
 }
@@ -40,6 +44,7 @@ resource "google_sql_user" "aquabot" {
     name        = "aquabot"
     instance    = "${google_sql_database_instance.master.name}"
     password    = "${file("secrets/db_password.txt")}"
+    host        = "%" # Don't restrict host as we enforce TLS/SSL for security
 }
 
 # Grant

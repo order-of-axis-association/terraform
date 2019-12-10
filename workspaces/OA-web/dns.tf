@@ -21,4 +21,3 @@ resource "google_compute_firewall" "http-ssh" {
 
   target_tags = ["ssh-traffic"]
 }
-

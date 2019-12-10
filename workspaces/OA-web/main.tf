@@ -1,7 +1,7 @@
 resource "google_compute_instance" "OA-web-prod" {
   name         = "oa-web-prod"
   machine_type = "f1-micro"
-  zone         = "${var.region_zone}"
+  zone         = var.region_zone
 
   tags = ["http-traffic", "ssh-traffic"]
 
@@ -20,6 +20,6 @@ resource "google_compute_instance" "OA-web-prod" {
   }
 
   metadata = {
-    user-data = "${data.template_file.cloud-init.rendered}"
+    user-data = data.template_file.cloud-init.rendered
   }
 }
