@@ -17,3 +17,13 @@ resource "google_dns_record_set" "bugreports" {
 
     rrdatas = ["${var.bugreports_url}"]
 }
+
+resource "google_dns_record_set" "http" {
+    name = "${google_dns_managed_zone.oa-zone.dns_name}"
+    type = "A"
+
+    ttl = 60
+
+    managed_zone = "${google_dns_managed_zone.oa-zone.name}"
+    rrdatas = ['35.245.118.9']
+}

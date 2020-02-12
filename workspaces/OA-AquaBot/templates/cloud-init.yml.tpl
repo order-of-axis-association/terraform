@@ -17,7 +17,7 @@ write_files:
 
     [Service]
     Environment="HOME=/home/aquabot"
-    ExecStartPre=/usr/bin/docker-credential-gcr configure-docker # use this if your are using Google's docker repository
+    ExecStartPre=/usr/bin/docker-credential-gcr configure-docker # use this if your are using Googles docker repository
     ExecStartPre=/usr/bin/docker pull gcr.io/${gcr_project}/${gcr_image}:${gcr_tag}
     ExecStart=/usr/bin/docker run \
         --rm \
