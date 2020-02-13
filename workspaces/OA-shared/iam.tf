@@ -45,6 +45,7 @@ resource "google_storage_bucket_iam_binding" "gcr-docker-image-access" {
     role   = "roles/storage.objectViewer"
 
     members = [
-        "serviceAccount:${data.google_service_account.aquabot-sa.email}"
+        "serviceAccount:${data.google_service_account.aquabot-sa.email}",
+        "serviceAccount:${data.google_service_account.oa-web-sa.email}"
     ]
 }

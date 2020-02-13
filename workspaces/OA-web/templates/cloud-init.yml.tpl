@@ -3,6 +3,7 @@
 users:
 - name: oa-web
   uid: 2000
+  groups: docker
 
 write_files:
 - path: /etc/systemd/system/oa-web.service
@@ -10,19 +11,20 @@ write_files:
   owner: root
   content: |
     [Unit]
-    Description=Runs the order-of-axis-association/docker-OA-web docker image on GCR.
+    Description=Runs the order-of-axis-association/OA_web docker image on GCR.
     Requires=docker.service network-online.target
     After=docker.service network-online.target
 
     [Service]
+    User=oa-web
     Environment="HOME=/home/oa-web"
-    ExecStartPre=/usr/bin/docker-credential-gcr configure-docker # use this if your are using Google's docker repository
-    #ExecStartPre=/usr/bin/docker pull gcr.io/${gcr_project}/${gcr_image}:${gcr_tag}
+    ExecStartPre=/usr/bin/docker-credential-gcr configure-docker # use this if your are using Googles docker repository
+    ExecStartPre=/usr/bin/docker pull gcr.io/${gcr_project}/${gcr_image}:${gcr_tag}
     ExecStart=/usr/bin/docker run \
-		--network=host \
- 		--rm \
-		--name=oa-web \
-		gcr.io/${gcr_project}/${gcr_image}:${gcr_tag}
+      --network=host \
+      --rm \
+      --name=oa-web \
+      gcr.io/${gcr_project}/${gcr_image}:${gcr_tag}
     ExecStop=/usr/bin/docker stop oa-web
     Restart=on-failure
     RestartSec=10
@@ -32,4 +34,4 @@ write_files:
 runcmd:
 - iptables -A INPUT -p tcp -j ACCEPT
 - systemctl daemon-reload
-#- systemctl enable --now --no-block oa-web.service
+- systemctl enable --now --no-block oa-web.service

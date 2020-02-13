@@ -25,5 +25,5 @@ resource "google_dns_record_set" "http" {
     ttl = 60
 
     managed_zone = "${google_dns_managed_zone.oa-zone.name}"
-    rrdatas = ['35.245.118.9']
+    rrdatas = ["35.245.118.9"]
 }
