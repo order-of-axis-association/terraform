@@ -22,8 +22,12 @@ resource "google_compute_instance" "OA-web-prod" {
   }
 
   service_account {
-    email  = "${google_service_account.oa-web-sa.email}"
-    scopes = ["storage-ro", "cloud-platform"]
+    email = "${google_service_account.oa-web-sa.email}"
+    scopes = [
+      "storage-ro",
+      "cloud-platform",
+      #"devstorage.read_only"
+    ]
   }
 
   metadata = {
