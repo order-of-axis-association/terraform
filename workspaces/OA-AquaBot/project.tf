@@ -1,6 +1,6 @@
 resource "google_project_services" "enabled-apis" {
-  project     = "${data.google_project.project.project_id}"
-  services    = [
+  project = "${data.google_project.project.project_id}"
+  services = [
     "oslogin.googleapis.com",
     "compute.googleapis.com",
     "logging.googleapis.com",

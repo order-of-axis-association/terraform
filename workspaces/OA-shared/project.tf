@@ -4,8 +4,8 @@ provider "google" {
 }
 
 resource "google_project_services" "enabled-apis" {
-  project     = "${data.google_project.project.project_id}"
-  services    = [
+  project = "${data.google_project.project.project_id}"
+  services = [
     "cloudresourcemanager.googleapis.com",
     "pubsub.googleapis.com",
     "compute.googleapis.com",

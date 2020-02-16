@@ -31,7 +31,7 @@ resource "google_project_iam_binding" "cloudbuild_submit" {
 # Give access to KMS keyring
 resource "google_kms_key_ring_iam_binding" "order-of-axis-kms-ring-decrypter" {
   key_ring_id = "${data.google_project.project.project_id}/${var.region}/${var.kms_key_ring_name}"
-  role          = "roles/cloudkms.cryptoKeyDecrypter"
+  role        = "roles/cloudkms.cryptoKeyDecrypter"
 
   members = [
     "serviceAccount:${var.oa_shared_cloudbuild_sa}",
@@ -41,11 +41,11 @@ resource "google_kms_key_ring_iam_binding" "order-of-axis-kms-ring-decrypter" {
 
 # Give access to GCR images
 resource "google_storage_bucket_iam_binding" "gcr-docker-image-access" {
-    bucket = "artifacts.${var.project_id}.appspot.com"
-    role   = "roles/storage.objectViewer"
+  bucket = "artifacts.${var.project_id}.appspot.com"
+  role   = "roles/storage.objectViewer"
 
-    members = [
-        "serviceAccount:${data.google_service_account.aquabot-sa.email}",
-        "serviceAccount:${data.google_service_account.oa-web-sa.email}"
-    ]
+  members = [
+    "serviceAccount:${data.google_service_account.aquabot-sa.email}",
+    "serviceAccount:${data.google_service_account.oa-web-sa.email}"
+  ]
 }

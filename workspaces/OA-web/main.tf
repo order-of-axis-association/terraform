@@ -22,12 +22,12 @@ resource "google_compute_instance" "OA-web-prod" {
   }
 
   service_account {
-    email = "${google_service_account.oa-web-sa.email}"
-    scopes = [ "storage-ro", "cloud-platform" ]
+    email  = "${google_service_account.oa-web-sa.email}"
+    scopes = ["storage-ro", "cloud-platform"]
   }
 
   metadata = {
     user-data = data.template_file.cloud-init.rendered
-    sshKeys = "${var.gce_ssh_user}:${var.gce_ssh_user_pub}"
+    sshKeys   = "${var.gce_ssh_user}:${var.gce_ssh_user_pub}"
   }
 }
