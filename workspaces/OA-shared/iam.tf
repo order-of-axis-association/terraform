@@ -19,7 +19,7 @@ resource "google_project_iam_custom_role" "cloudbuild_base_push_role" {
 }
 
 resource "google_project_iam_binding" "cloudbuild_submit" {
-  project = "${data.google_project.project.project_id}"
+  project = data.google_project.project.project_id
   role    = "projects/${data.google_project.project.project_id}/roles/${google_project_iam_custom_role.cloudbuild_base_push_role.role_id}"
 
   members = [

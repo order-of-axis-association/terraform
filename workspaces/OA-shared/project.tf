@@ -1,10 +1,10 @@
 provider "google" {
-  project = "${var.project_id}"
-  region  = "${var.region}"
+  project = var.project_id
+  region  = var.region
 }
 
 resource "google_project_services" "enabled-apis" {
-  project = "${data.google_project.project.project_id}"
+  project = data.google_project.project.project_id
   services = [
     "cloudresourcemanager.googleapis.com",
     "pubsub.googleapis.com",
