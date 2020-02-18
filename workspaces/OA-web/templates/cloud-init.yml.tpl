@@ -10,7 +10,7 @@ write_files:
   permissions: 0755
   owner: oa-web
   content: |
-    version: '3'
+    version: '2'
     services:
       oa-web:
         container_name: oa-web
@@ -19,13 +19,43 @@ write_files:
           - 90
         environment:
           - "VIRTUAL_HOST=orderofaxis.org"
-      nginx:
+          - "LETSENCRYPT_HOST=orderofaxis.org"
+
+      nginx-proxy:
         container_name: nginx-proxy
         image: jwilder/nginx-proxy
         ports:
           - "80:80"
+          - "443:443"
+        environment:
+          - "VIRTUAL_HOST=orderofaxis.org"
+          - "LETSENCRYPT_HOST=orderofaxis.org"
         volumes:
           - /var/run/docker.sock:/tmp/docker.sock:ro
+          - certs:/etc/nginx/certs:ro
+          - vhost:/etc/nginx/vhost.d
+          - html:/usr/share/nginx/html
+          - dhparam:/etc/nginx/dhparam
+          - conf:/etc/nginx/conf.d
+
+      letsencrypt-nginx-proxy:
+        container_name: letsencrypt
+        image: jrcs/letsencrypt-nginx-proxy-companion
+        volumes_from:
+          - nginx-proxy
+        environment:
+          - "DEFAULT_EMAIL=orderofaxis@gmail.com"
+        volumes:
+          - certs:/etc/nginx/certs:rw
+          - /var/run/docker.sock:/var/run/docker.sock:ro
+
+    volumes:
+      conf:
+      vhost:
+      html:
+      dhparam:
+      certs:
+
 
 - path: /etc/systemd/system/oa-compose.service
   permissions: 0645

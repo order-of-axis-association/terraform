@@ -1,3 +1,7 @@
+resource "google_compute_address" "static" {
+  name = "ipv4-address"
+}
+
 resource "google_compute_instance" "OA-web-prod" {
   name         = "oa-web-prod"
   machine_type = "f1-micro"
@@ -5,7 +9,7 @@ resource "google_compute_instance" "OA-web-prod" {
 
   allow_stopping_for_update = true
 
-  tags = ["http-traffic", "ssh-traffic"]
+  tags = ["http-traffic", "https-traffic", "ssh-traffic"]
 
   boot_disk {
     initialize_params {
@@ -17,16 +21,15 @@ resource "google_compute_instance" "OA-web-prod" {
     network = "default"
 
     access_config {
-      # this empty block creates a public IP address
+      nat_ip = google_compute_address.static.address
     }
   }
 
   service_account {
-    email = "${google_service_account.oa-web-sa.email}"
+    email = google_service_account.oa-web-sa.email
     scopes = [
       "storage-ro",
       "cloud-platform",
-      #"devstorage.read_only"
     ]
   }
 

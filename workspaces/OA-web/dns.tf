@@ -10,6 +10,19 @@ resource "google_compute_firewall" "http-traffic" {
   target_tags = ["http-traffic"]
 }
 
+resource "google_compute_firewall" "https-traffic" {
+  name    = "allow-https"
+  network = "default"
+
+  allow {
+    protocol = "tcp"
+    ports    = ["443"]
+  }
+
+  target_tags = ["https-traffic"]
+}
+
+
 resource "google_compute_firewall" "http-ssh" {
   name    = "allow-ssh"
   network = "default"
