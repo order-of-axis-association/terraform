@@ -8,4 +8,5 @@ gce_ssh_user_pub = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDQkGx1tcDiqMH9JBnG9n98
 
 gcr_shared_project = "oa-shared-247623"
 gcr_image_name     = "oa-web"
-gcr_image_tag      = "latest"
+gcr_image_tag_prod = "master"
+gcr_image_tag_dev  = "development"

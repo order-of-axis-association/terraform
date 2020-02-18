@@ -12,7 +12,12 @@ data "google_service_account" "oa-web-sa" {
   account_id = "oa-web-sa"
 }
 
-data "google_compute_address" "static" {
-  name    = "ipv4-address"
+data "google_compute_address" "oa-web-prod" {
+  name    = "oa-web-prod-ipv4-addr"
+  project = "blissful-flame-247406"
+}
+
+data "google_compute_address" "oa-web-dev" {
+  name    = "oa-web-dev-ipv4-addr"
   project = "blissful-flame-247406"
 }

@@ -18,13 +18,25 @@ resource "google_dns_record_set" "bugreports" {
   rrdatas = [var.bugreports_url]
 }
 
-resource "google_dns_record_set" "http" {
+
+# OA-web
+resource "google_dns_record_set" "oa-web-prod" {
   name = google_dns_managed_zone.oa-zone.dns_name
   type = "A"
 
   ttl = 60
 
   managed_zone = google_dns_managed_zone.oa-zone.name
-  rrdatas      = [data.google_compute_address.static.address]
+  rrdatas      = [data.google_compute_address.oa-web-prod.address]
+}
+
+resource "google_dns_record_set" "oa-web-dev" {
+  name = "dev.${google_dns_managed_zone.oa-zone.dns_name}"
+  type = "A"
+
+  ttl = 60
+
+  managed_zone = google_dns_managed_zone.oa-zone.name
+  rrdatas      = [data.google_compute_address.oa-web-dev.address]
   #rrdatas = ["35.245.118.9"]
 }

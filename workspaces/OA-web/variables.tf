@@ -8,4 +8,5 @@ variable "gce_ssh_user_pub" {}
 
 variable "gcr_shared_project" {}
 variable "gcr_image_name" {}
-variable "gcr_image_tag" {}
+variable "gcr_image_tag_prod" {}
+variable "gcr_image_tag_dev" {}
