@@ -19,7 +19,9 @@ write_files:
           - 90
         environment:
           - "VIRTUAL_HOST=orderofaxis.org"
+          - "VIRTUAL_PORT=90"
           - "LETSENCRYPT_HOST=orderofaxis.org"
+          - "LETSENCRYPT_EMAIL=orderofaxis@gmail.com"
 
       nginx-proxy:
         container_name: nginx-proxy
