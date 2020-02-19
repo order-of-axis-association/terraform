@@ -7,6 +7,7 @@ data "template_file" "cloud-init-prod" {
     gcr_project = "${var.gcr_shared_project}"
     gcr_image   = "${var.gcr_image_name}"
     gcr_tag     = "${var.gcr_image_tag_prod}"
+    subdomain   = ""
   }
 }
 
@@ -60,6 +61,7 @@ data "template_file" "cloud-init-dev" {
     gcr_project = "${var.gcr_shared_project}"
     gcr_image   = "${var.gcr_image_name}"
     gcr_tag     = "${var.gcr_image_tag_dev}"
+    subdomain   = "dev."
   }
 }
 

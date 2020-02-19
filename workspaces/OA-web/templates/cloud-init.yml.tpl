@@ -18,9 +18,9 @@ write_files:
         expose:
           - 90
         environment:
-          - "VIRTUAL_HOST=orderofaxis.org"
+          - "VIRTUAL_HOST=${subdomain}orderofaxis.org"
           - "VIRTUAL_PORT=90"
-          - "LETSENCRYPT_HOST=orderofaxis.org"
+          - "LETSENCRYPT_HOST=${subdomain}orderofaxis.org"
           - "LETSENCRYPT_EMAIL=orderofaxis@gmail.com"
 
       nginx-proxy:
@@ -30,8 +30,8 @@ write_files:
           - "80:80"
           - "443:443"
         environment:
-          - "VIRTUAL_HOST=orderofaxis.org"
-          - "LETSENCRYPT_HOST=orderofaxis.org"
+          - "VIRTUAL_HOST=${subdomain}orderofaxis.org"
+          - "LETSENCRYPT_HOST=${subdomain}orderofaxis.org"
         volumes:
           - /var/run/docker.sock:/tmp/docker.sock:ro
           - certs:/etc/nginx/certs:ro
@@ -73,10 +73,12 @@ write_files:
     Environment="HOME=/home/oa-web"
     WorkingDirectory=/home/oa-web
     ExecStartPre=/usr/bin/docker-credential-gcr configure-docker
+    ExecStartPre=/usr/bin/docker pull gcr.io/${gcr_project}/${gcr_image}:${gcr_tag}
     ExecStart=/usr/bin/docker run \
       --rm \
       -v "/var/run/docker.sock:/var/run/docker.sock:ro" \
       -v "/home/oa-web/:/home/oa-web/" \
+      -v "/home/oa-web/.docker:/root/.docker:ro" \
       -w="/home/oa-web/" \
       docker/compose:1.24.0 up
     ExecStop=/usr/bin/docker stop oa-compose
@@ -88,4 +90,4 @@ write_files:
 runcmd:
 - iptables -A INPUT -p tcp -j ACCEPT
 - systemctl daemon-reload
-#- systemctl enable --now --no-block oa-web.service
+- systemctl enable --now --no-block oa-compose.service
